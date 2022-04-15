@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import './reset.css';
+
+:root {
+    --font-family: "Open Sans";
+    --foreground: #535353;
+    --background: #fff;
+    --action-bar-bg: #C3C7CD;
+    --action-bar-width: 48px;
+    --sidebar-bg: #EBEDEF;
+}
+
+#app {
+    font-family: var(--font-family), 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Sans', Arial, sans-serif;
+    overflow: hidden;
+    color: var(--foreground);
+}
+
+/**
+ * Tooltips
+ */
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-container:hover .tooltip.right,
+.tooltip-container:hover .tooltip.left,
+.tooltip-container:hover .tooltip.top,
+.tooltip-container:hover .tooltip.bottom {
+    display: block;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    padding: 0.25rem;
+    min-width: calc(var(--action-bar-width) + 50%);
+    border: 1px solid black;
+    background-color: white;
+}
+
+.tooltip.right {
+    left: 100%;
+    top: 0;
+}
+
+.tooltip.right.center {
+    transform: translateY(50%);
+}
+
+.tooltip.left {
+    right: 100%;
+    top: 0;
+}
+
+.tooltip.left.center {
+    transform: translateY(50%);
+}
+
+.tooltip.top {
+    bottom: 100%;
+}
+
+.tooltip.top.center {
+    transform: translateX(-25%);
+    text-align: center;
+}
+
+.tooltip.bottom.center {
+    transform: translateX(50%);
+}
+
+/** Tooltip **/
+
+/* Sidebar **/
+aside.sidebar .sidebar {
+    display: flex;
+    flex-direction: column;
+}
+.sidebar {
+    display: none;
+    width: 250px;
+    min-width: 250px;
+    background: var(--sidebar-bg);
+}
+.sidebar .header {
+    padding-left: 2rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--action-bar-bg);
+}
+.sidebar .body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0.5rem;
+}
+.sidebar .body button {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+    background-color: var(--action-bar-bg);
+    width: 100%;
+}
+
+.sidebar .body button:hover {
+    background-color: var(--sidebar-bg);
+}
+/* /Sidebar */
+
+input {
+    border: none;
+    border-radius: 0;
+    padding: 0.25rem 0.5rem;
+}
+
+input:focus, input:active input:focus-visible {
+    outline: 1px solid blue;
+}
+
