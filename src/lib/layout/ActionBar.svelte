@@ -1,59 +1,48 @@
 <script>
-import Commerce from "../sidebar/Commerce.svelte";
-import Finance from "../sidebar/Finance.svelte";
+import { onMount } from 'svelte'
+import { appStore } from '../states/app.js'
 
-import Home from "../sidebar/Home.svelte"
-import Operational from "../sidebar/Operational.svelte";
-import Procurement from "../sidebar/Procurement.svelte";
+export let actions = []
 
-let menuLists = [
-    [
-        {title: 'Dashboard', icon: 'home', action: () => showComponent('home', Home)},
-        {title: 'Commercial', icon: 'support_agent', action: () => showComponent('commerce', Commerce)},
-        {title: 'Procurement', icon: 'receipt', action: () => showComponent('procurement', Procurement)},
-        {title: 'Operational', icon: 'local_shipping', action: () => showComponent('operational', Operational)},
-        {title: 'Financial', icon: 'account_balance', action: () => showComponent('finance', Finance)},
-    ], [
-        {icon: 'account_circle', title: 'Akun'},
-        {icon: 'settings', title: 'Setting'},
-    ]
-]
-
-let selection = {
-    key: 'home',
-    component: Home
-}
-
-let isOpened = true
+let component
 
 function toggleSidebar(key) {
-    if (key === selection.key) {
-        isOpened = !isOpened
+    if (key === $appStore.currentAction) {
+        $appStore.isSidebarOpened = !$appStore.isSidebarOpened
+    } else {
+        $appStore.isSidebarOpened = true
+        $appStore.currentAction = key
     }
-
-    selection.key = key
 }
 
-function showComponent(key, component) {
-    toggleSidebar(key)
-    selection.component = component
+function updateAction(action) {
+    if (action.sidebar) {
+        toggleSidebar(action.key)
+        component = action.sidebar
+    }
 }
+
+onMount(() => {
+    if ($appStore.currentAction === '' && actions.length > 0 && actions[0].length > 0) {
+        updateAction(actions[0][0])
+    }
+})
 </script>
 
-<aside class:sidebar={isOpened}>
+<aside class:sidebar={$appStore.isSidebarOpened}>
     <nav>
-        {#each menuLists as menuList}
+        {#each actions as actionList}
         <ul>
-            {#each menuList as menu}
-                <li class="tooltip-container" on:click={() => menu.action()}>
-                    <span class="material-icons">{menu.icon}</span>
-                    <div class="tooltip right center">{menu.title}</div>
+            {#each actionList as action}
+                <li class="tooltip-container" on:click={() => updateAction(action)}>
+                    <span class="material-icons">{action.icon}</span>
+                    <div class="tooltip right center">{action.title}</div>
                 </li>
             {/each}
         </ul>    
         {/each}
     </nav>
-    <svelte:component this={selection.component} />
+    <svelte:component this={component} />
 </aside>
 
 <style>

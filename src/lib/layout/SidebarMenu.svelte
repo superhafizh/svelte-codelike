@@ -4,6 +4,6 @@ export let menuItems
 
 <ul>
     {#each menuItems as menuItem}
-    <li>{ menuItem.label }</li>
+        <li>{ menuItem.label }</li>
     {/each}
 </ul>

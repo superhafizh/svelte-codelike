@@ -7,6 +7,8 @@
         {title}
     </div>
     <div class="body">
-        <input>
+        <button>Daftar Customer</button>
+        <button>Pengirim / Penerima</button>
+        <button>Jemput Barang</button>
     </div>
 </div>
